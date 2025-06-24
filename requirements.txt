@@ -2,3 +2,4 @@ langgraph
 langchain
 langsmith
 python-dotenv
+langchain_tavily
