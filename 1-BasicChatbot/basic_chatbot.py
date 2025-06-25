@@ -39,6 +39,9 @@ graph = graph_builder.compile()
 
 # running the Graph
 response = graph.invoke({'messages': 'Hi, what is your full model name?'})
-
 print(response['messages'])
 print(response['messages'][-1].content)
+
+# running using stream
+for event in graph.stream({'messages': 'Hi, how are you, what is your model name?'}):
+    print(event)
