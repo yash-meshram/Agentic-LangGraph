@@ -20,12 +20,6 @@ class State(TypedDict):
 # defining llm
 llm = init_chat_model('groq:llama3-8b-8192')
 
-# Node
-def chatbot(state: State):
-    return {
-        'messages': [llm.invoke(state['messages'])]
-    }
-
 # search tool
 travily_search = TavilySearch(max_results = 2)
 
@@ -55,6 +49,12 @@ tools = [travily_search, human_assistant]
 # binding llm with tools
 llm_with_tools = llm.bind_tools(tools)
 
+# Node
+def chatbot(state: State):
+    return {
+        'messages': [llm_with_tools.invoke(state['messages'])]
+    }
+
 # memory
 memory = MemorySaver()
 
@@ -78,14 +78,14 @@ graph = builder.compile(checkpointer = memory)
 config = {'configurable': {'thread_id': '1'}}
 
 # running the graph
-events = graph.stream({'messages': 'I need some guidance from human regarding agentic ai, could you request assistant.'}, config = config, stream_mode = 'values')
+events = graph.stream({'messages': 'I need some expert guidance and assistance for building an AI agent. Can you please request assistant for me?'}, config = config, stream_mode = 'values')
 for event in events:
     if 'messages' in event:
         event['messages'][-1].pretty_print()
 
 # human intervention
 human_response = (
-    "Look into langgraph documentation"
+    "Look into langgraph documentation",
     "Check n8n also - its pretty cool"
 )
 human_command = Command(resume = {'data': human_response})
