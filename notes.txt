@@ -1,0 +1,21 @@
+MCP
+
+MCP Servers
+MCP CLient
+MCP Protocol
+
+Input
+  |
+  v
+Application <-----> MCP Client <-----> MCP Server <-----> Tools (Add, Multiply, Weather API)
+  |
+  v
+Output
+
+
+MCP Protocol = communication with MCP Servers
+There are different Transpose protocol that we use 
+one of the tools is 
+- stdio
+- http
+
